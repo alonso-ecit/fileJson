@@ -6,6 +6,6 @@ public class App {
 		FileListener filelistener = new FileListener();
 	    filelistener.startMonitor();
 		
-		//System.out.println(Utils.getRelativePath("Nowcasting_TITAN_20160715000600_Z0025.txt"));
+		//System.out.println(Utils.getRelativePath("Nowcasting_TRECINDEX_20160714232400_Z0025.txt"));
 	}
 }

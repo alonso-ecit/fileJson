@@ -90,7 +90,9 @@ public class Utils {
    * 根据文件名拼接文件路径
    * */
   public static String getRelativePath(String fileName){
-	  String[] split = fileName.replace(".txt", "").split("_");
+	  
+	  fileName = fileName.replaceAll("-.*\\.txt$|.txt$", "");
+	  String[] split = fileName.split("_");
 	  String relativePath = "";
 	  String mosaicSite = getPropertyByKey("mosaicSite");//拼图站点名称
 	  for(int i=0, len=split.length; i<len; i++){
@@ -116,6 +118,12 @@ public class Utils {
 	  return relativePath;
   }
   
+  /*
+   * 获取文件名
+   * */
+  public static String getOutputFileName(String fileName){
+	  return fileName.replaceAll("-.*\\.txt$|.txt$", "");
+  }
   /*
    * 根据文件路径判断文件夹是否存在，不存在则创建文件夹
    * */

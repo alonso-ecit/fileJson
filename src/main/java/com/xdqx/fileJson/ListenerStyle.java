@@ -1,7 +1,7 @@
 package com.xdqx.fileJson;
 
 import java.io.File;
-import java.io.PrintStream;
+
 import org.apache.commons.io.monitor.FileAlterationListener;
 import org.apache.commons.io.monitor.FileAlterationObserver;
 
@@ -28,7 +28,7 @@ public class ListenerStyle implements FileAlterationListener {
     System.out.println("加入文件:" + file.getAbsolutePath());
 
     if (file.getName().trim().toLowerCase().endsWith(".txt")) {
-      if (file.getName().substring(11, 20).equals("TRECINDEX")) {
+      if (file.getName().contains("TRECINDEX")) {
         ChangeTR changetr = new ChangeTR();
         changetr.Jsonfile(file);
       } else {

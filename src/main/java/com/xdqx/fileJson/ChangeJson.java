@@ -174,8 +174,7 @@ public class ChangeJson
         }
         
         String outPutPath = rootOutPut + "/" + Utils.getRelativePath(file.getName());//此处根据文件名日期获取文件
-        String fileName = file.getName().replace(".txt", "") + suffix + ".json";
-        System.out.println(obj.toString());
+        String fileName = Utils.getOutputFileName(file.getName()) + suffix + ".json";
         //输出geojson文件
         contentToTxt(file, outPutPath, fileName, obj.toString());
       }
