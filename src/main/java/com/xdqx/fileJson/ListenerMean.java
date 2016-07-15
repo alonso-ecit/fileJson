@@ -9,7 +9,9 @@ public class ListenerMean
 {
   FileAlterationMonitor monitor = null;
 
-  public ListenerMean(long interval) throws Exception { this.monitor = new FileAlterationMonitor(interval); }
+  public ListenerMean(long interval) throws Exception { 
+	  this.monitor = new FileAlterationMonitor(interval);
+  }
 
   public void monitor(String path, FileAlterationListener listener)
   {

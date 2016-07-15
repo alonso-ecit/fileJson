@@ -1,61 +1,38 @@
 package com.xdqx.fileJson;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
-public class FileListener
-{
-  private String addss;
-  private static String path;
-
-  public void getResource()
-  {
-    InputStream is = getClass().getResourceAsStream("/config");
-    BufferedReader br = new BufferedReader(new InputStreamReader(is));
-    String s = "";
-    try {
-      s = br.readLine();
-    }
-    catch (IOException e)
-    {
-      String shuju;
-      e.printStackTrace();
-    }
-
-    JSONArray jsonArray = JSONArray.fromObject(s);
-    int size = jsonArray.size();
-    for (int i = 0; i < size; i++) {
-      JSONObject jsonObject = jsonArray.getJSONObject(i);
-      this.addss = jsonObject.getString("input").toString();
-      String type = jsonObject.getString("type").toString();
-      try
-      {
-        if (type.equals("TITAN")) {
-          ListenerMean m1 = new ListenerMean(60000L);
-          m1.monitor(this.addss, new ListenerStyle());
-          m1.start();
-        } else if (type.equals("RADRWARNING")) {
-          ListenerMean m2 = new ListenerMean(6000L);
-          m2.monitor(this.addss, new ListenerStyle());
-          m2.start();
-        } else if (type.equals("TRECINDEX")) {
-          ListenerMean m3 = new ListenerMean(5000L);
-          m3.monitor(this.addss, new ListenerStyle());
-          m3.start();
-        }
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-    }
-  }
-
-  public static void main(String[] args)
-  {
-    FileListener filelistener = new FileListener();
-    filelistener.getResource();
+/*
+ * 文件监听  分别监听config.properties配置文件中三种文件产品 input为监听路径  output为输出路径
+ * */
+public class FileListener {
+  public void startMonitor() {
+        ListenerMean titanMonitor;
+		try {
+			titanMonitor = new ListenerMean(60000L);
+			titanMonitor.monitor(Utils.getPropertyByKey("titan.input"), new ListenerStyle());
+			titanMonitor.start();
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+          
+        ListenerMean radarwaringMonitor;
+		try {
+			radarwaringMonitor = new ListenerMean(6000L);
+			radarwaringMonitor.monitor(Utils.getPropertyByKey("radarwaring.input"), new ListenerStyle());
+			radarwaringMonitor.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+          
+        ListenerMean trecindexMonitor;
+		try {
+			trecindexMonitor = new ListenerMean(5000L);
+			trecindexMonitor.monitor(Utils.getPropertyByKey("trecindex.input"), new ListenerStyle());
+			trecindexMonitor.start();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
   }
 }

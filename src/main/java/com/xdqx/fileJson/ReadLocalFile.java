@@ -14,9 +14,10 @@ public class ReadLocalFile
     this.localFile = localFile;
   }
 
-  public String getLocalFileContent(String unicode)
-    throws Exception
-  {
+  /*
+   * 读取本地文件
+   * */
+  public String getLocalFileContent(String unicode) throws Exception {
     File file = new File(this.localFile);
     if (!file.exists()) return "";
     String s = null;
@@ -27,8 +28,7 @@ public class ReadLocalFile
       reader = new BufferedReader(streamReader);
       s = reader.readLine();
 
-      while (s != null)
-      {
+      while (s != null) {
         sb.append(s);
         sb.append("\r\n");
         s = reader.readLine();
@@ -38,12 +38,14 @@ public class ReadLocalFile
     } finally {
       reader.close();
     }
+    
     return sb.toString();
   }
 
-  public String getLocalFileLastLineContent()
-    throws Exception
-  {
+  /*
+   * 读取文本最后一行数据
+   * */
+  public String getLocalFileLastLineContent() throws Exception {
     String lineString = null;
     BufferedReader reader = null;
     try {
@@ -59,6 +61,7 @@ public class ReadLocalFile
     } finally {
       reader.close();
     }
+    
     return lineString;
   }
 }
