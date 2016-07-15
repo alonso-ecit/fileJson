@@ -4,7 +4,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLDecoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -47,42 +50,32 @@ public class Utils {
     return laststr;
   }
   
+  /*
+   * 根据key值获取配置文件中内容
+   * */
   public static String getPropertyByKey(String key){
-	  String configPath = getPropertyPath();
-	  if(configPath != null){
-		  String content = ReadFile(configPath);
-		  String[] split = content.split("\r\n");//换行分隔
-		  for(int i=0, len=split.length; i<len; i++){
-			  if(split[i].contains("=") && split[i].contains(key)){
-				  return split[i].split("=")[1];//根据key返回value
-			  }
-		  }
-	  } 
+	  InputStream is = Utils.class.getResourceAsStream("/config.properties");       
+       BufferedReader br = new BufferedReader(new InputStreamReader(is));    
+       String s="";    
+       String content = "";
+       try {
+    	   while((s=br.readLine())!=null){
+			content += s + "\r\n";    
+		   }
+    	   
+    	   String[] split = content.split("\r\n");//换行分隔
+ 		   for(int i=0, len=split.length; i<len; i++){
+ 			  if(split[i].contains("=") && split[i].contains(key)){
+ 				  return split[i].split("=")[1];//根据key返回value
+ 			  }
+ 		  }
+ 		   
+ 		  br.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	  
 	  return null;
-  }
-  
-  /*
-   * 获取config.properties文件位置
-   * */
-  public static String getPropertyPath(){
-	  String path = Utils.class.getResource("/").getFile();
-	  String[] split = path.split("/");
-	  String p = "";
-		
-	  for(int i=0, len=split.length; i<len-2; i++){
-		  if(!split[i].equals("")){
-			  p += split[i] + "/";
-		  }
-	  }
-	
-	  String configPath = p + "config.properties";
-	  File file = new File(configPath);
-	  if(file.exists()){
-		  return configPath;
-	  }else{
-		  return null;
-	  }
   }
   
   /*

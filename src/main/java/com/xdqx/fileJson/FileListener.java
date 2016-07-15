@@ -1,13 +1,18 @@
 package com.xdqx.fileJson;
 
-import org.apache.commons.io.monitor.FileAlterationListener;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
+import com.xdqx.fileJson.ListenerMean;
 /*
  * 文件监听  分别监听config.properties配置文件中三种文件产品 input为监听路径  output为输出路径
  * */
 public class FileListener{
   public void startMonitor() {
         ListenerMean titanMonitor;
+        
 		try {
 			titanMonitor = new ListenerMean(60000L, Utils.getPropertyByKey("titan.input"));
 			titanMonitor.start();
