@@ -93,7 +93,7 @@ public class Utils {
 			try {
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss");  
 				Date date = sdf.parse(split[i]);
-				String mmdd = new SimpleDateFormat("MM-dd").format(date);
+				String mmdd = new SimpleDateFormat("yyyy-MM-dd").format(date);
 				relativePath = mmdd + "/" + relativePath;
 				continue;
 			} catch (ParseException e) {
